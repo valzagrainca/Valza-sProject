@@ -1,0 +1,57 @@
+  <!-- Heading Start -->
+  
+<div class="row heading">
+    <div class="col-sm-2 col-md-1 col-xs-3 heading-avatar">
+      <div class="heading-avatar-icon">
+        <img src="http://shurl.esy.es/y">
+      </div>
+    </div>
+    <div class="col-sm-8 col-xs-7 heading-name">
+      <a class="heading-name-meta" style="color:white">Ankit Jain
+      </a>
+      <span class="heading-online" style="color:white">Online</span>
+    </div>
+    <div class="col-sm-1 col-xs-1  heading-dot pull-right">
+      <i class="fa fa-ellipsis-v fa-2x  pull-right" aria-hidden="true" style="color:white"></i>
+    </div>
+  </div>
+  <!-- Heading End -->
+
+  <!-- Message Box -->
+  <div class="row message" id="conversation">
+    <% for (let message of apiResponse) {%>
+      <% if (message.user_id === userId) {%>
+        <div class="row message-body">
+          <div class="col-sm-12 message-main-receiver">
+            <div class="receiver">
+              <% if (message.is_group) {%>
+                Me
+              <%}%>
+              <div class="message-text">
+              <%= message.text%>
+              <%= userId%>
+              <%= message.user_id%>
+              </div>
+            </div>
+          </div>
+        </div>
+      <%}else {%>
+        <div class="row message-body">
+          <div class="col-sm-12 message-main-sender">
+            <div class="sender">
+              <% if (message.is_group) {%>
+                <%= message.name%>
+              <%}%>
+              <div class="message-text">
+                <%= message.text%>
+                <%= userId%>
+                <%= message.user_id%>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% }%>
+    <% }%>
+  </div>
+
+  <!-- Message Box End -->

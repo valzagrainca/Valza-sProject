@@ -1,0 +1,29 @@
+
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/login.css">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="logo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/640px-WhatsApp.svg.png" alt="">
+        </div>
+        <div class="text-center mt-4 name">
+            WhatsApp
+        </div>
+        <form class="p-3 mt-3" action="/login" method="POST">
+            <div class="form-control form-field d-flex align-items-center">
+                <span class="far fa-user"></span>
+                <input type="text" name="phone" id="phone" placeholder="Phone">
+            </div>
+            <div class="form-control form-field d-flex align-items-center">
+                <span class="fas fa-key"></span>
+                <input type="number" name="code" id="code" placeholder="Code">
+            </div>
+            <button class="btn mt-3" type="submit">Login</button>
+        </form>
+        <div class="text-center fs-6">
+            <a href="#">Forget password?</a> or <a href="/signup">Sign up</a>
+        </div>
+    </div>
+</body>
+</html>

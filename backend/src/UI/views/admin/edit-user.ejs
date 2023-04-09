@@ -1,0 +1,68 @@
+
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/editUser.css"/>
+</head>
+<body>
+    <div class="container">
+        <div class="row gutters">
+        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="account-settings">
+                    <div class="user-profile">
+                        <div class="user-avatar">
+                            <img src="<%= user.profile_picture%>" alt="<%= user.first_name%>">
+                        </div>
+                        <h5 class="user-name"><%= user.first_name%> <%= user.last_name%></h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+        <div class="card h-100">
+            <div class="card-body">
+                    <form action="/admin/edit-user" method="post" class="row gutters">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <h6 class="mb-2 text-primary">Personal Details</h6>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label for="firstName">First Name</label>
+                                <input type="text" class="form-control" name="first_name" value="<%= user.first_name%>">
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" class="form-control" name="last_name" value="<%= user.last_name%>">
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label for="phone">Phone</label>
+                                <input type="text" class="form-control" name="number" value="<%= user.number%>">
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label for="status">Status</label>
+                                <input type="text" class="form-control" name="status" value="<%= user.status%>">
+                            </div>
+                        </div>
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <input type="hidden" name="user_id" value="<%= user.id%>">
+                            <input type="hidden" name="profile_picture" value="<%= user.profile_picture%>">
+                            <input type="hidden" name="code" value="<%= user.code%>">
+                            <div class="text-right">
+                                <button type="submit" id="submit" name="submit" class="btn btn-primary">Update</button>
+                            </div>
+                        </div>
+                    </form>
+            </div>
+        </div>
+        </div>
+        </div>
+        </div>
+</body>
+</html>

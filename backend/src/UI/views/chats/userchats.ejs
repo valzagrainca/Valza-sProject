@@ -1,0 +1,105 @@
+<html lang="en">
+
+<head>
+  <title><%= pageTitle %></title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/css/chats.css">
+  <!-- Font Awesome File -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+  <div class="container app">
+    <div class="row app-one">
+
+      <div class="col-sm-4 side">
+        <div class="side-one">
+          <!-- Heading -->
+          <div class="row heading">
+            <div class="col-sm-2 col-xs-2 heading-avatar">
+              <div class="heading-avatar-icon">
+                <img src="<%= user.profile_picture%>">
+              </div>
+              <p class="text-info" style=><%= user.first_name %> <%= user.last_name %></p>
+            </div>
+            <div class="col-sm-5 col-xs-5 d-flex align-items-center" style="padding-top:10px;">
+                <p style="font-size: 14px; color:white;"><%= user.first_name %> <%= user.last_name %></p>
+            </div>
+            <div class="col-sm-1 col-xs-1  heading-dot  pull-right">
+              <i class="fa fa-ellipsis-v fa-2x  pull-right" aria-hidden="true"style="color:white"></i>
+            </div>
+            <div class="col-sm-2 col-xs-2 heading-compose  pull-right">
+              <i class="fa fa-comments fa-2x  pull-right" aria-hidden="true" style="color:white"></i>
+            </div>
+          </div>
+          <!-- Heading End -->
+
+          <!-- sideBar -->
+          <div class="row sideBar">
+            <%for (let chat of chats) {%>
+            <div class="row sideBar-body" onclick="clickedRow(this)" data-chatId="<%=chat.chat_id%>">
+              <div class="col-sm-3 col-xs-3 sideBar-avatar">
+                <div class="avatar-icon">
+                  <img src="<%if (chat.is_group) { %><%=chat.group_picture%> <%} else {%> <%=chat.profile_picture%> <% } %>">
+                </div>
+              </div>
+              <div class="col-sm-9 col-xs-9 sideBar-main">
+                <div class="row">
+                  <div class="col-sm-8 col-xs-8 sideBar-name">
+                    <span class="name-meta"><%if (chat.is_group) { %><%=chat.chat_name%> <%} else {%> <%=chat.first_name%> <%=chat.last_name%> <% } %>
+                  </span>
+                  </div>
+                  <div class="col-sm-4 col-xs-4 pull-right sideBar-time">
+                    <span class="time-meta pull-right">
+                  </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <% } %>
+          </div>
+          <!-- Sidebar End -->
+        </div>
+      </div>
+      <!-- New Message Sidebar End -->
+
+      <!-- Conversation Start -->
+      <div class="col-sm-8 conversation">
+
+        <div><%- include('messages.ejs', { apiResponse: messages, userId: user.id}) %></div>
+
+        <!-- Reply Box -->
+        <div class="row reply">
+          <div class="col-sm-1 col-xs-1 reply-emojis">
+            <i class="fa fa-smile-o fa-2x"></i>hELLO
+          </div>
+          <div class="col-sm-9 col-xs-9 reply-main">
+            <textarea class="form-control" rows="1" id="comment"></textarea>
+          </div>
+          <div class="col-sm-1 col-xs-1 reply-recording">
+            <i class="fa fa-microphone fa-2x" aria-hidden="true"></i>
+          </div>
+          <div class="col-sm-1 col-xs-1 reply-send">
+            <i class="fa fa-send fa-2x" aria-hidden="true"></i>
+          </div>
+        </div>
+        <!-- Reply Box End -->
+      </div>
+      <!-- Conversation End -->
+    </div>
+    <!-- App One End -->
+  </div>
+  <!-- App End -->
+</body>
+
+</html>
+<script>
+  const clickedRow = (btn)=>{
+  console.log(btn);
+  }
+</script>

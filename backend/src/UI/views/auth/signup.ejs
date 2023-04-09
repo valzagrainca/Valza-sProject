@@ -1,0 +1,46 @@
+
+<%- include('../includes/head.ejs') %>
+<link rel="stylesheet" href="/css/login.css">
+</head>
+<body>
+    <div class="wrapper" style="padding-top:3px;">
+        <div class="text-center mt-4 name">
+            Write your info!
+        </div>
+        <form class="p-3 mt-3" action="/signup" method="POST">
+            <div class="form-control form-field d-flex align-items-center">
+                <span class="far fa-user"></span>
+                <input type="text" name="firstName" id="firstName" placeholder="First Name">
+            </div>
+            <div class="form-control form-field d-flex align-items-center">
+                <span class="far fa-user"></span>
+                <input type="text" name="lastName" id="lastName" placeholder="Last Name">
+            </div>
+            <div class="form-control form-field d-flex align-items-center">
+                <span class="far fa-user"></span>
+                <input type="text" name="phone" id="phone" placeholder="Phone">
+            </div>
+            <div class="form-control form-field d-flex align-items-center">
+                <span class="far fa-user"></span>
+                <input type="text" name="status" id="status" placeholder="Status">
+            </div>
+            <div class="form-control form-field d-flex align-items-center">
+                <span class="far fa-user"></span>
+                <input type="text" name="profilePicture" id="profilePicture" placeholder="Profile Picture">
+            </div>
+            <div class="form-control form-field d-flex align-items-center">
+                <span class="fas fa-key"></span>
+                <input type="number" name="code" id="code" placeholder="Code">
+            </div>
+            <div class="form-control form-field d-flex align-items-center">
+                <span class="fas fa-key"></span>
+                <input type="number" name="confirmCode" id="confirmCode" placeholder="Confirm Code">
+            </div>
+            <button class="btn mt-3" type="submit">Signup</button>
+        </form>
+        <div class="text-center fs-6">
+            Already have an account<a href="/"> Login</a>
+        </div>
+    </div>
+</body>
+</html>
