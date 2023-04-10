@@ -36,11 +36,11 @@ export class AuthController{
                 res.json({user:user,token:accessToken,expiresIn:expires});
             }
             else{
-                res.json("Error username or password");
+                res.status(500).json({message:"Error email or password "});
             }
         }
         else{
-            res.json("User already exists");
+            res.status(500).json({message:"Error email or password "});
         }
         
     }
@@ -59,11 +59,11 @@ export class AuthController{
         const password:string = bcrypt.hashSync(req.body.password, 8);
 
         if(await this.userService.getUserByEmail(email,'Users')!=null){
-            res.status(500).json({ message: 'User already exists'});
+            res.status(500).json({ message: 'User with this email already exists '});
         }
         else{
             await this.userService.insertUser(username,email,phone,password,'insert_into_userstbl');
-            res.status(200).json({ message: "User registered successfully!" });
+            res.status(200).json({ message: "User registered successfully " });
         }
     }
 }
