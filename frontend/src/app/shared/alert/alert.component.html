@@ -1,0 +1,5 @@
+<div *ngIf="message" [ngClass]="{ 'alert': true, 'alert-success': success, 'alert-danger': !success }">
+    {{ message }}
+    <button class="alert-close" (click)="clearMessage()">x</button>
+</div>
+  

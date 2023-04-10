@@ -4,31 +4,51 @@
             <div class="col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6">
                 <div class="form-container">
                     <h3 class="title">My Account</h3>
-                    <form class="form-horizontal">
+                    <form class="form-horizontal" [formGroup]="signupForm">
                         <div class="form-icon">
                             <i class="fa fa-user-circle"></i>
                         </div>
                         <div class="form-group">
                             <span class="input-icon"><i class="fa fa-user"></i></span>
-                            <input type="email" class="form-control" placeholder="Username">
-                        </div>
+                            <input type="email" class="form-control" placeholder="Username" formControlName="username">
+                            <div *ngIf="signupForm.get('username')?.invalid && signupForm.get('username')?.touched" class="text-danger">
+                                <div *ngIf="signupForm.get('username')?.errors?.['required']" class="text-danger">Username is required</div>
+                            </div>
+                        </div>                          
                         <div class="form-group">
                             <span class="input-icon"><i class="fa fa-lock"></i></span>
-                            <input type="password" class="form-control" placeholder="Password">
+                            <input type="password" class="form-control" placeholder="Password" formControlName="password">
+                            <div *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched" class="text-danger">
+                                <div *ngIf="signupForm.get('password')?.errors?.['required']" class="text-danger">Password is required</div>
+                                <div *ngIf="signupForm.get('password')?.errors?.['pattern']" class="text-danger">Include at least 8 digits, number, one upper case and one lower case character</div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <span class="input-icon"><i class="fa fa-exchange"></i></span>
-                            <input type="password" class="form-control" placeholder="Confirm Password">
+                            <input type="password" class="form-control" placeholder="Confirm Password" formControlName="confirmPassword">
+                            <div *ngIf="signupForm.get('confirmPassword')?.invalid && signupForm.get('confirmPassword')?.touched" class="text-danger">
+                                <div *ngIf="signupForm.get('confirmPassword')?.errors?.['required']" class="text-danger">Confirm Password is required</div>
+                            </div>
+                            <div *ngIf="signupForm.errors?.['match_error'] && signupForm.get('confirmPassword')?.touched && signupForm.get('confirmPassword')?.value" class="text-danger">{{signupForm.errors?.['match_error']  }}</div>
                         </div>
                         <div class="form-group">
                             <span class="input-icon"><i class="fa fa-envelope"></i></span>
-                            <input type="email" class="form-control" placeholder="Email">
+                            <input type="email" class="form-control" placeholder="Email" formControlName="email">
+                            <div *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched" class="text-danger">
+                                <div *ngIf="signupForm.get('email')?.errors?.['required']" class="text-danger">Email is required</div>
+                                <div *ngIf="signupForm.get('email')?.errors?.['email']" class="text-danger">Invalid Email</div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <span class="input-icon"><i class="fa fa-phone"></i></span>
-                            <input type="phone" class="form-control" placeholder="Phone">
+                            <input type="phone" class="form-control" placeholder="Phone" formControlName="phone">
+                            <div *ngIf="signupForm.get('phone')?.invalid && signupForm.get('phone')?.touched" class="text-danger">
+                                <div *ngIf="signupForm.get('phone')?.errors?.['required']" class="text-danger">Phone is required</div>
+                                <div *ngIf="signupForm.get('phone')?.errors?.['pattern']" class="text-danger">Invalid phone number</div>
+                            </div>
                         </div>
-                        <button class="btn signin">Signup</button>
+                        <app-alert [message]="message" [success]="status"></app-alert>
+                        <button class="btn signin" (click)="signup()">Signup</button>
                         <span class="signup">Already have an account <a (click)="navigateToLogin()">Login</a></span>
                     </form>
                 </div>

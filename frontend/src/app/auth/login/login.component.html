@@ -17,6 +17,7 @@
                 <input type="password" class="form-control" placeholder="Password" formControlName="password">
                 <span class="forgot"><a href="">Forgot Password?</a></span>
               </div>
+              <app-alert [message]="message" [success]="status"></app-alert>
               <button type="submit" class="btn signin" (click)="logIn()">Login</button>
               <span class="signup">Don't have an account <a (click)="navigateToSignup()">Signup</a></span>
             </form>

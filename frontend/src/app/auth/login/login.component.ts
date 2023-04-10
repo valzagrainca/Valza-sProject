@@ -11,10 +11,10 @@ import { LoginResponseModel } from '../models/login-response.models';
 })
 export class LoginComponent implements OnInit{
   loginForm!: FormGroup;
-  @Output() logInClicked: EventEmitter<Object> = new EventEmitter<Object>();
+  message: string='';
+  status!: boolean;
 
-  constructor(private formBuilder: FormBuilder, private authService:AuthService, private router:Router) {
-   }
+  constructor(private formBuilder: FormBuilder, private authService:AuthService, private router:Router) {}
 
   ngOnInit() {
     this.setupForm();
@@ -32,7 +32,8 @@ export class LoginComponent implements OnInit{
           }
         },
         error => {
-          console.log(error);
+          this.message = error.error.message;
+          this.status = false;
         }
       );
     }

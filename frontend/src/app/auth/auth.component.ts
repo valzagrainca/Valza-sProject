@@ -9,6 +9,7 @@ import { AuthService } from '../core/services/auth.service';
   styleUrls: ['./auth.component.css']
 })
 export class AuthComponent {
+  test='somwthing';
   constructor(private router:Router, private authService:AuthService,private formBuilder:FormBuilder){
 
   }

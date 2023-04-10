@@ -11,10 +11,16 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './core/services/auth.service';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
+import { AlertComponent } from './shared/alert/alert.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ChatsComponent } from './chats/chats.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ChatsComponent
   ],
   imports: [
     BrowserModule,
@@ -22,7 +28,11 @@ import { AuthInterceptor } from './core/interceptors/auth.interceptor';
     AuthModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatDialogModule
   ],
   providers:[
     AuthService,

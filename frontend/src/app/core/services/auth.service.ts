@@ -69,6 +69,16 @@ export class AuthService{
     getUsers(){
         return this.http.get<any>(this.config.apiUrl+'admin/users');
     }
+
+    signup(username: string, password: string, email: string, phone: string): Observable<any>{
+        const body = {
+            username: username,
+            password: password,
+            email: email,
+            phone: phone
+        };
+        return this.http.post<any>(this.config.apiUrl+'signup',body);
+    }
 }
 
 
