@@ -1,0 +1,48 @@
+<div class="side-one">
+    <div class="row heading">
+        <div class="col-lg-10">
+            <div class="heading-avatar-icon">
+                <img src="https://bootdey.com/img/Content/avatar/avatar1.png">
+                <p style="color: antiquewhite">
+                  {{ loggedInUser ? (loggedInUser.first_name && loggedInUser.last_name ? (loggedInUser.first_name + ' ' + loggedInUser.last_name) : loggedInUser.username) : '' }}
+                </div>
+        </div>
+        <div class="col-lg-1">
+            <i class="fa fa-comments fa-2x  pull-right" aria-hidden="true"></i>
+        </div>
+        <div class="col-lg-1">
+            <i class="fa fa-ellipsis-v fa-2x  pull-right" aria-hidden="true"></i>
+        </div>
+    </div>
+
+    <div class="row searchBox">
+      <div class="col-sm-12 searchBox-inner">
+        <div class="form-group has-feedback">
+          <input id="searchText" type="text" class="form-control" name="searchText" placeholder="Search">
+          <span class="glyphicon glyphicon-search form-control-feedback"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row sideBar" id="style-4">
+      <div *ngFor="let chat of chats" class="row sideBar-body">
+        <div class="col-sm-3 col-xs-3 sideBar-avatar">
+          <div class="avatar-icon">
+            <img src="{{ chat.is_group ? chat.group_picture:chat.profile_picture}}">
+          </div>
+        </div>
+        <div class="col-sm-9 col-xs-9 sideBar-main">
+          <div class="row">
+            <div class="col-sm-8 col-xs-8 sideBar-name">
+              <span class="name-meta">{{ chat.is_group ? chat.chat_name : (chat.first_name && chat.last_name ? (chat.first_name + ' ' + chat.last_name) : chat.username)}}
+            </span>
+            </div>
+            <div class="col-sm-4 col-xs-4 pull-right sideBar-time">
+              <span class="time-meta pull-right">18:18
+            </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

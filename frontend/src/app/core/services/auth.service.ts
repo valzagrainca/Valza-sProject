@@ -1,36 +1,51 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, tap, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, tap, throwError } from 'rxjs';
 import { ConfigService } from './config.service';
 import { LoginResponseModel } from 'src/app/auth/models/login-response.models';
 import * as moment from 'moment';
 import { Router } from '@angular/router';
+import { LoggedInUser } from '../models/user';
 
 @Injectable({
-    providedIn: 'root'
+    providedIn:'root'
 })
 
 export class AuthService{
+    private loggedInUser: LoggedInUser|null=null;
     constructor(
         private http: HttpClient, private config:ConfigService, private router: Router
     ){}
 
     logIn(email: string, password: string): Observable<LoginResponseModel> {
         const body = { email, password };
-        return this.http.post<LoginResponseModel>(this.config.apiUrl + 'login', body);
+        return this.http.post<LoginResponseModel>(this.config.apiUrl + 'login', body).pipe(
+            tap(response => {
+                localStorage.setItem('loggedInUser', JSON.stringify(response.user));
+                })
+          );
     }
     
     setSession(token: string) {
-        debugger;
-        const expiresAt = moment().add(1, 'minute').unix();
+        const expiresAt = moment().add(1, 'hour').unix();
         localStorage.setItem('access_token', token);
         localStorage.setItem('expires_at', JSON.stringify(expiresAt));
         console.log(localStorage.getItem('access_token'),' ',localStorage.getItem('expires_at'));
     }
 
+    getLoggedInUser(){
+        const user = localStorage.getItem('loggedInUser');
+        if(user){
+            this.loggedInUser= JSON.parse(user);
+            return this.loggedInUser;
+        }
+        return null;
+    }
+
     logout() {
         localStorage.removeItem("access_token");
         localStorage.removeItem("expires_at");
+        localStorage.removeItem('loggedInUser');
     }
 
     public isLoggedIn() {

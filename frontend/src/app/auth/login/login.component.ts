@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit{
         (response: LoginResponseModel) => {
           if (response && response.token) {
             this.authService.setSession(response.token);
-            this.router.navigate(['/users']);
+            this.router.navigate(['chat/userchats']);
           }
         },
         error => {

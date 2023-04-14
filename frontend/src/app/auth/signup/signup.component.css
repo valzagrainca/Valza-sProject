@@ -3,7 +3,9 @@
     background: linear-gradient(150deg,#1B394D 33%,#2D9DA7 34%,#2D9DA7 66%,#EC5F20 67%);
     font-family: 'Raleway', sans-serif;
     text-align: center;
-    padding: 30px 20px 50px;
+    padding: 10px 40px 20px;
+    margin-top: 10px;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 30px 90px;
 }
 .form-container .title{
     color: #fff;
