@@ -7,12 +7,8 @@ export class ChatController{
     getUserChats=async(req:Request, res:Response, next:NextFunction)=>{
         const userId: number=Number(req.params.userId);
         const result=await this.chatService.getChats(userId,'get_user_chats');
-        const messages=await this.chatService.getMessages(1,'v_view_chat')
-        res.render('chats/userchats',{
-            pageTitle: 'User Chat',
-            user:result.user,
-            chats:result.chats,
-            messages:messages
+        res.json({
+            chats:result.chats
         });
     }
 

@@ -27,6 +27,6 @@ export class UserService implements IUserService{
     }
 
     insertUser=async(username: string,email: string,phone: string,password: string, procedureName : string):Promise<Boolean>=>{
-        return await this.userRepository.callProcedure(procedureName,username,email,phone,password);
+        return await this.userRepository.callProcedure(procedureName,username,email,password,phone,2);
     }
 }

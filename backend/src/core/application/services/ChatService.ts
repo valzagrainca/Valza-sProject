@@ -7,10 +7,9 @@ import { IChatService } from "../serviceInterfaces/IChatService";
 export class ChatService implements IChatService{
     constructor(private userRepository:IBaseRepository<User>,private chatRepository:IBaseRepository<Chat>){}
 
-    getChats=async(id: number, funcName: string): Promise<{ user: User | null, chats: Chat[] }>=>{
-        const user=await this.userRepository.findById(id,'Users');
+    getChats=async(id: number, funcName: string): Promise<{ chats: Chat[] }>=>{
         const chats=await this.chatRepository.callFunction(funcName,id);
-        return { user, chats };
+        return {chats};
     }
 
     getMessages=async(chat_id:number, funcName:string): Promise<Message[]>=>{

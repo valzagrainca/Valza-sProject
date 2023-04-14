@@ -14,7 +14,7 @@ const secretKey = Buffer.from(
   ).toString('ascii');
 
 export const createToken = (user:any) => {
-    const accessToken = sign({id:user.id},secretKey,{ expiresIn: '1m' });
+    const accessToken = sign({id:user.id},secretKey,{ expiresIn: '1h' });
 
     return accessToken;
 }
