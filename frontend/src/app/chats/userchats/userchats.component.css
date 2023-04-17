@@ -34,12 +34,14 @@
   border-radius: 50%;
   height: 40px;
   width: 40px;
+  cursor: pointer;
 }
 .heading-avatar-icon {
   display: flex;
 }
 .heading-avatar-icon p{
   padding:10px;
+  cursor: pointer;
 }
 
 .searchBox {

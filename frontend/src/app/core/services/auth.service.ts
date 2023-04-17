@@ -94,6 +94,23 @@ export class AuthService{
         };
         return this.http.post<any>(this.config.apiUrl+'signup',body);
     }
+
+    updateProfile(username: string, firstname: string, lastname: string, email: string, profilepicture: string, phone: string, status: string): Observable<any>{
+        debugger;       
+        const body={
+            id: this.loggedInUser?.id,
+            username: username,
+            email: email,
+            first_name: firstname,
+            last_name: lastname,
+            phone: phone,
+            password: this.loggedInUser?.password,
+            status: status,
+            profile_picture: profilepicture
+        }
+
+        return this.http.post(this.config.apiUrl+'admin/edit-user',body);
+    }
 }
 
 

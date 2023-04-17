@@ -5,6 +5,7 @@ import { ChatsComponent } from './chats.component';
 import { MessagesComponent } from './messages/messages.component';
 import { UserchatsComponent } from './userchats/userchats.component';
 import { ChatsRoutingModule } from './chats-routing.models';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { ChatsRoutingModule } from './chats-routing.models';
     CommonModule,
     ChatsRoutingModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    MatSelectModule
   ],
   providers: [
     { provide: 'Window',  useValue: window }

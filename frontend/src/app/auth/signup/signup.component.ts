@@ -1,6 +1,5 @@
 import { Component,OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { AlertComponent } from 'src/app/shared/alert/alert.component';
@@ -14,8 +13,7 @@ export class SignupComponent implements OnInit{
   signupForm!:FormGroup;
   message: string='';
   status!: boolean;
-  constructor(private router:Router, 
-    private dialog: MatDialog,private formBuilder: FormBuilder, private authService:AuthService){}
+  constructor(private router:Router,private formBuilder: FormBuilder, private authService:AuthService){}
 
   ngOnInit(): void {
     this.setupForm();

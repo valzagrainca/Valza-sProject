@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { ChatsService } from 'src/app/core/services/chats.service';
 import { ChatResponseModel } from '../models/chat-response-model';
 import { Chat } from 'src/app/core/models/chat';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-userchats',
@@ -13,7 +14,7 @@ import { Chat } from 'src/app/core/models/chat';
 export class UserchatsComponent implements OnInit{
   loggedInUser: LoggedInUser|null=null;
   chats: Chat[]=[];
-  constructor(private chatService: ChatsService,private authService:AuthService){}
+  constructor(private chatService: ChatsService,private authService:AuthService, private router:Router){}
   ngOnInit(): void {
     this.loggedInUser=this.authService.getLoggedInUser();
     this.chatService.getUserChats().subscribe(
@@ -24,7 +25,10 @@ export class UserchatsComponent implements OnInit{
       (error: any) => {
         console.error(error);
       }
-  );
+  );}
   
-}}
+  navigateToEditProfile():void{
+    this.router.navigate(['/userdetail']);
+  }
+}
 

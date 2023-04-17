@@ -1,0 +1,44 @@
+<div class="container contact-form">
+            <div class="contact-image">
+                <img src="https://media.istockphoto.com/id/1268548918/vector/white-create-account-screen-icon-isolated-with-long-shadow-red-circle-button-vector.jpg?s=612x612&w=0&k=20&c=tyaWWtW2_yQyvK4hBnVXEt3tfSNr0jVC_6P7XbOBrbk=" alt="rocket_contact"/>
+            </div>
+            <form [formGroup]="profileForm">
+               <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" name="txtName" class="form-control" placeholder="Username" value="" formControlName="username"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="firstname">First Name</label>
+                            <input type="text" name="txtFirstName" class="form-control" placeholder="First Name" value="" formControlName="firstname" />
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname">Last Name</label>
+                            <input type="text" name="txtLastName" class="form-control" placeholder="Last Name" value="" formControlName="lastname"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" name="email" class="form-control" placeholder="Email" value="" formControlName="email"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" name="btnSubmit" class="btnContact" value="Edit Profile" (click)="updateUserProfile()" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="picture">Profile Picture URL</label>
+                            <input type="text" name="picture" class="form-control" placeholder="Profile Picture" value="" formControlName="profilepicture"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input type="phone" name="phone" class="form-control" placeholder="Phone" value="" formControlName="phone" />
+                        </div>
+                        <div class="form-group">
+                            <label for="status">Status</label>
+                            <input type="text" name="status" class="form-control" placeholder="Status" value=""  formControlName="status"/>
+                        </div>
+                    </div>
+                </div>
+            </form>
+</div>

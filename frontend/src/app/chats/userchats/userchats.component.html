@@ -2,10 +2,10 @@
     <div class="row heading">
         <div class="col-lg-10">
             <div class="heading-avatar-icon">
-                <img src="https://bootdey.com/img/Content/avatar/avatar1.png">
-                <p style="color: antiquewhite">
+                <img src="{{loggedInUser ? loggedInUser.profile_picture:''}}" (click)="navigateToEditProfile()">
+                <p style="color: antiquewhite" (click)="navigateToEditProfile()">
                   {{ loggedInUser ? (loggedInUser.first_name && loggedInUser.last_name ? (loggedInUser.first_name + ' ' + loggedInUser.last_name) : loggedInUser.username) : '' }}
-                </div>
+            </div>
         </div>
         <div class="col-lg-1">
             <i class="fa fa-comments fa-2x  pull-right" aria-hidden="true"></i>
