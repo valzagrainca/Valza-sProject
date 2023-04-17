@@ -27,7 +27,7 @@ export class UserController{
         res.redirect('/admin/users');
     };
 
-    editUser=(req: Request, res:Response, next: NextFunction)=>{
+    editUser=async(req: Request, res:Response, next: NextFunction)=>{
             const id:number=req.body.id;
             const username:string=req.body.username;
             const email:string=req.body.email;
@@ -37,7 +37,8 @@ export class UserController{
             const password:string=req.body.password;
             const status:string=req.body.status;
             const profile_picture:string=req.body.profile_picture;
-            this.userService.updateUser(id,username,email,phone,password,first_name,last_name,status,profile_picture,'users');
-            res.status(200).json({message:'User profile updated '});
+            const updateduser=await this.userService.updateUser(id,username,email,phone,password,first_name,last_name,status,profile_picture,'users');
+            console.log(updateduser);
+            res.status(200).json(updateduser);
     };
 }

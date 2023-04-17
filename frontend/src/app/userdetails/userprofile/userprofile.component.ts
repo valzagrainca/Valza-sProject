@@ -38,6 +38,7 @@ export class UserprofileComponent implements OnInit{
       const { username, firstname, lastname, email, profile_picture, phone, status } = this.profileForm.value;
       this.authService.updateProfile(username, firstname, lastname, email, profile_picture, phone, status).subscribe(
         (response) => {
+          console.log(response);
           this.loggedInUser=this.authService.getLoggedInUser();
           this.router.navigate(['chat/userchats']);
         },

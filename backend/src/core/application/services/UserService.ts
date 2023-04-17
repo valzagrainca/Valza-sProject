@@ -32,10 +32,15 @@ export class UserService implements IUserService{
         status: string,
         profile_picture: string,
         tableName: string
-      ):Promise<Boolean>=>{
-        const user = new User(id,username,first_name,last_name,email,password,phone,status,profile_picture);
-        return await this.userRepository.updateById(tableName, user, { id: id });   
-    }
+      ): Promise<User | null> => {
+        const user = new User(id, username, first_name, last_name, email, password, phone, status, profile_picture);
+        const updateResult = await this.userRepository.updateById(tableName, user, { id: id });
+        if (updateResult) {
+            const updatedUser = await this.userRepository.findById(id,tableName); // assuming you have a method to get user by id
+            return updatedUser;
+        }
+        return null; // indicate that update was not successful
+      };
 
     insertUser=async(username: string,email: string,phone: string,password: string, procedureName : string):Promise<Boolean>=>{
         return await this.userRepository.callProcedure(procedureName,username,email,password,phone,2);

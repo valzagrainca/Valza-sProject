@@ -41,9 +41,7 @@ export class BaseRepository<T>  implements IBaseRepository<T> {
          SET ${columns.map((c, i) => `"${c}"=$${i + 1}`).join(', ')}
          WHERE ${whereColumns.map((c, i) => `"${c}"=$${i + columns.length + 1}`).join(' AND ')}
          `;
-      console.log(updateQuery);
       const updateValues = [...Object.values(values), ...Object.values(where)];
-      console.log(updateValues);
 
       const updated=await this.db.query(updateQuery, updateValues);
       return updated.rowCount===1;

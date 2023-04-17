@@ -99,7 +99,7 @@ export class AuthService{
         return this.http.post<any>(this.config.apiUrl+'signup',body);
     }
 
-    updateProfile(username: string, firstname: string, lastname: string, email: string, profilepicture: string, phone: string, status: string): Observable<any>{
+    updateProfile(username: string, firstname: string, lastname: string, email: string, profilepicture: string, phone: string, status: string): Observable<LoggedInUser>{
         debugger;       
         const body={
             id: this.loggedInUser?.id,
@@ -113,7 +113,12 @@ export class AuthService{
             profile_picture: profilepicture
         }
 
-        return this.http.post(this.config.apiUrl+'admin/edit-user',body);
+        return this.http.post<LoggedInUser>(this.config.apiUrl+'admin/edit-user',body).pipe(
+            tap(response=> {
+                localStorage.setItem('loggedInUser', JSON.stringify(response));
+                this.setLoggedInUser(response);
+            })
+        );
     }
 }
 
