@@ -42,6 +42,10 @@ export class AuthService{
         return null;
     }
 
+    setLoggedInUser(loggedInUser: LoggedInUser|null){
+        this.loggedInUser=loggedInUser;
+    }
+
     logout() {
         localStorage.removeItem("access_token");
         localStorage.removeItem("expires_at");

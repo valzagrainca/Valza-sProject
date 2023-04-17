@@ -21,9 +21,20 @@ export class UserService implements IUserService{
         return await this.userRepository.deleteById(id,tableName);
     }
 
-    updateUser=async(id: number,username: string,email:string,phone: string,password:string,first_name: string,last_name: string,status: string,profile_picture: string, tableName : string):Promise<Boolean>=>{
-        const user= new User(id,username,email,phone,password,first_name,last_name,status,profile_picture);
-        return await this.userRepository.updateById(tableName,user,{id:id});
+    updateUser = async (
+        id: number,
+        username: string,
+        email: string,
+        phone: string,
+        password: string,
+        first_name: string,
+        last_name: string,
+        status: string,
+        profile_picture: string,
+        tableName: string
+      ):Promise<Boolean>=>{
+        const user = new User(id,username,first_name,last_name,email,password,phone,status,profile_picture);
+        return await this.userRepository.updateById(tableName, user, { id: id });   
     }
 
     insertUser=async(username: string,email: string,phone: string,password: string, procedureName : string):Promise<Boolean>=>{

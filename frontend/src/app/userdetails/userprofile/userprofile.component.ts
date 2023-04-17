@@ -26,33 +26,27 @@ export class UserprofileComponent implements OnInit{
       firstname: [this.loggedInUser?.first_name],
       lastname: [this.loggedInUser?.last_name],
       email: [this.loggedInUser?.email, [Validators.required]],
-      profilepicture: [this.loggedInUser?.profile_picture, [Validators.required]],
+      profile_picture: [this.loggedInUser?.profile_picture, [Validators.required]],
       phone: [this.loggedInUser?.phone, [Validators.required]],
       status: [this.loggedInUser?.status]
     });
   }
 
-  updateUserProfile(): void{
-    if(this.profileForm.valid){
+  updateUserProfile(): void {
+    if (this.profileForm.valid) {
       debugger;
-      const username = this.profileForm.get('username')?.value;
-      const firstname = this.profileForm.get('firstname')?.value;
-      const lastname = this.profileForm.get('lastname')?.value;
-      const email = this.profileForm.get('email')?.value;
-      const profile_picture = this.profileForm.get('profilepicture')?.value;
-      const phone = this.profileForm.get('phone')?.value;
-      const status = this.profileForm.get('status')?.value;
-      this.authService.updateProfile(username,firstname,lastname,email,profile_picture,phone,status).subscribe(
+      const { username, firstname, lastname, email, profile_picture, phone, status } = this.profileForm.value;
+      this.authService.updateProfile(username, firstname, lastname, email, profile_picture, phone, status).subscribe(
         (response) => {
-          if (response) {
-            this.router.navigate(['chat/userchats']);
-          }
+          this.loggedInUser=this.authService.getLoggedInUser();
+          this.router.navigate(['chat/userchats']);
         },
-        error => {
+        (error) => {
           this.message = error.error.message;
           this.status = false;
         }
       );
     }
   }
+  
 }

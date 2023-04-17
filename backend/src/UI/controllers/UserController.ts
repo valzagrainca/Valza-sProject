@@ -28,8 +28,8 @@ export class UserController{
     };
 
     editUser=(req: Request, res:Response, next: NextFunction)=>{
-            const id:number=req.body.user_id;
-            const username:string=req.body.user;
+            const id:number=req.body.id;
+            const username:string=req.body.username;
             const email:string=req.body.email;
             const first_name:string=req.body.first_name;
             const last_name:string=req.body.last_name;
@@ -38,6 +38,6 @@ export class UserController{
             const status:string=req.body.status;
             const profile_picture:string=req.body.profile_picture;
             this.userService.updateUser(id,username,email,phone,password,first_name,last_name,status,profile_picture,'users');
-            res.status(200).json('User profile updated ');
+            res.status(200).json({message:'User profile updated '});
     };
 }
