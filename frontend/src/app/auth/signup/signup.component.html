@@ -14,7 +14,21 @@
                             <div *ngIf="signupForm.get('username')?.invalid && signupForm.get('username')?.touched" class="text-danger">
                                 <div *ngIf="signupForm.get('username')?.errors?.['required']" class="text-danger">Username is required</div>
                             </div>
-                        </div>                          
+                        </div>    
+                        <div class="form-group">
+                            <span class="input-icon"><i class="fa fa-user"></i></span>
+                            <input type="text" class="form-control" placeholder="First Name" formControlName="firstName">
+                            <div *ngIf="signupForm.get('firstName')?.invalid && signupForm.get('firstName')?.touched" class="text-danger">
+                                <div *ngIf="signupForm.get('firstName')?.errors?.['required']" class="text-danger">First name is required</div>
+                            </div>
+                        </div> 
+                        <div class="form-group">
+                            <span class="input-icon"><i class="fa fa-user"></i></span>
+                            <input type="text" class="form-control" placeholder="Last Name" formControlName="lastName">
+                            <div *ngIf="signupForm.get('lastName')?.invalid && signupForm.get('lastName')?.touched" class="text-danger">
+                                <div *ngIf="signupForm.get('lastName')?.errors?.['required']" class="text-danger">Last name is required</div>
+                            </div>
+                        </div>                       
                         <div class="form-group">
                             <span class="input-icon"><i class="fa fa-lock"></i></span>
                             <input type="password" class="form-control" placeholder="Password" formControlName="password">

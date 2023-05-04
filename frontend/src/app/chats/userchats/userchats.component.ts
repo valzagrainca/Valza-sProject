@@ -1,5 +1,5 @@
 import { Component, Injectable, OnInit } from '@angular/core';
-import { LoggedInUser } from 'src/app/core/models/user';
+import { LoggedInUser } from 'src/app/core/models/loggedInUser';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { ChatsService } from 'src/app/core/services/chats.service';
 import { ChatResponseModel } from '../models/chat-response-model';
@@ -20,7 +20,6 @@ export class UserchatsComponent implements OnInit{
     this.chatService.getUserChats().subscribe(
       (result) => {
         this.chats = result.chats;
-        console.log(this.chats);
       },
       (error: any) => {
         console.error(error);
@@ -29,6 +28,14 @@ export class UserchatsComponent implements OnInit{
   
   navigateToEditProfile():void{
     this.router.navigate(['/userdetail']);
+  }
+
+  selectedChat(chat: Chat){
+    this.chatService.selectedChat.emit(chat);
+  }
+
+  logOut(){
+    this.authService.logout();
   }
 }
 

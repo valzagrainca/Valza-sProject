@@ -1,4 +1,4 @@
-import { LoggedInUser } from "src/app/core/models/user";
+import { LoggedInUser } from "src/app/core/models/loggedInUser";
 
 export interface LoginResponseModel {
   token: string;

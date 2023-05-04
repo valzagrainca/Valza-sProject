@@ -26,11 +26,13 @@ export class SignupComponent implements OnInit{
   signup():void{
     if(this.signupForm.valid){
       const username = this.signupForm.get('username')?.value;
+      const first_name = this.signupForm.get('firstName')?.value;
+      const last_name = this.signupForm.get('lastName')?.value;
       const password = this.signupForm.get('password')?.value;
       const confirmPassword = this.signupForm.get('confirmPassword')?.value;
       const email = this.signupForm.get('email')?.value;
       const phone = this.signupForm.get('phone')?.value;
-      this.authService.signup(username,password,email,phone).subscribe(
+      this.authService.signup(username,first_name,last_name,password,email,phone).subscribe(
         (response: any) => {
           this.message = response.message;
           this.status = true;
@@ -51,6 +53,8 @@ export class SignupComponent implements OnInit{
   private setupForm(): void {
     this.signupForm = this.formBuilder.group({
       username: [null, [Validators.required]],
+      firstName: [null, [Validators.required]],
+      lastName: [null, [Validators.required]],
       password: [null, [Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$')]],
       confirmPassword: [null, [Validators.required]],
       email: [null, [Validators.required,Validators.email]],

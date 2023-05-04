@@ -76,7 +76,8 @@
   background-color: #393E46;
   overflow-y: auto;
   border: 1px solid #222831;
-  height: 475px !important;
+  height: 510px !important;
+  display: block;
 }
 .sideBar-body {
   position: relative;
@@ -88,7 +89,7 @@
 }
 
 .sideBar-body:hover {
-  background-color: #f2f2f2;
+  background-color: #f2f2f238;
 }
 
 .sideBar-avatar {

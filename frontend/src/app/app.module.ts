@@ -12,6 +12,11 @@ import { UserprofileComponent } from './userdetails/userprofile/userprofile.comp
 import { UserdetailsComponent } from './userdetails/userdetails.component';
 import { ChatsModule } from './chats/chats.module';
 import { UserDetailsModule } from './userdetails/userdetails.module';
+import {AngularFireModule} from '@angular/fire/compat';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { enviroment } from 'enviroments/enviroment';
+import { RouterModule } from '@angular/router';
+import { ConfigService } from './core/services/config.service';
 
 @NgModule({
   declarations: [
@@ -26,7 +31,10 @@ import { UserDetailsModule } from './userdetails/userdetails.module';
     ReactiveFormsModule,
     FormsModule,
     BrowserModule,
-    ChatsModule
+    ChatsModule,
+    AngularFireModule.initializeApp(enviroment.firebase),
+    AngularFireStorageModule,
+    RouterModule
   ],
   providers:[
     AuthService,
@@ -34,7 +42,8 @@ import { UserDetailsModule } from './userdetails/userdetails.module';
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
-    }
+    },
+    ConfigService
   ],
   bootstrap: [AppComponent]
 })

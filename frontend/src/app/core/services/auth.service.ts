@@ -5,7 +5,8 @@ import { ConfigService } from './config.service';
 import { LoginResponseModel } from 'src/app/auth/models/login-response.models';
 import * as moment from 'moment';
 import { Router } from '@angular/router';
-import { LoggedInUser } from '../models/user';
+import { LoggedInUser } from '../models/loggedInUser';
+import { User } from '../models/user';
 
 @Injectable({
     providedIn:'root'
@@ -18,13 +19,16 @@ export class AuthService{
     ){}
 
     logIn(email: string, password: string): Observable<LoginResponseModel> {
+        debugger;
         const body = { email, password };
         return this.http.post<LoginResponseModel>(this.config.apiUrl + 'login', body).pipe(
-            tap(response => {
-                localStorage.setItem('loggedInUser', JSON.stringify(response.user));
-                })
-          );
-    }
+          tap(response => {
+            localStorage.setItem('loggedInUser', JSON.stringify(response.user));
+            this.config.setupSocketConnection(); // set up client when user logs in
+          })
+        );
+      }
+      
     
     setSession(token: string) {
         const expiresAt = moment().add(1, 'hour').unix();
@@ -47,15 +51,18 @@ export class AuthService{
     }
 
     logout() {
+        this.config.disconnect();
         localStorage.removeItem("access_token");
         localStorage.removeItem("expires_at");
         localStorage.removeItem('loggedInUser');
+        this.router.navigate(['login']);
     }
 
-    public isLoggedIn() {
+    isLoggedIn() {
         const expiration = this.getExpiration();
-        if (expiration){
-            return moment().isBefore(this.getExpiration());
+        if (expiration) {
+          const now = moment(); // current time as a Moment object
+          return now.isBefore(expiration);
         }
         return false;
     }
@@ -79,22 +86,24 @@ export class AuthService{
     getExpiration() {
         const expiration = localStorage.getItem("expires_at");
         if (expiration) {
-          const expiresAt = JSON.parse(expiration);
-          return moment(expiresAt);
+          const expiresAt = parseInt(JSON.parse(expiration));
+          return moment.unix(expiresAt);
         }
         return null;
-    }    
+      }  
     
     getUsers(){
         return this.http.get<any>(this.config.apiUrl+'admin/users');
     }
 
-    signup(username: string, password: string, email: string, phone: string): Observable<any>{
+    signup(username: string, firstName: string, lastName: string, password: string, email: string, phone: string): Observable<any>{
         const body = {
             username: username,
             password: password,
             email: email,
-            phone: phone
+            phone: phone,
+            firstName: firstName,
+            lastName: lastName
         };
         return this.http.post<any>(this.config.apiUrl+'signup',body);
     }
@@ -119,6 +128,10 @@ export class AuthService{
                 this.setLoggedInUser(response);
             })
         );
+    }
+
+    getUserDetails(user_id: number){
+        return this.http.get<User>(this.config.apiUrl+'admin/edit-user/'+user_id);
     }
 }
 

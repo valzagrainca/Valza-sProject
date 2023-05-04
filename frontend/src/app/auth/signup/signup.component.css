@@ -1,6 +1,6 @@
 
 .form-container{
-    background: linear-gradient(150deg,#1B394D 33%,#2D9DA7 34%,#2D9DA7 66%,#EC5F20 67%);
+    background: linear-gradient(150deg,#393E46 33%,#C9D6DF 34%,#C9D6DF 66%,#00ADB5 67%);
     font-family: 'Raleway', sans-serif;
     text-align: center;
     padding: 10px 40px 20px;
@@ -35,7 +35,7 @@
     position: relative;
 }
 .form-horizontal .form-group .input-icon{
-    color: #e7e7e7;
+    color: #00ADB5;
     font-size: 23px;
     position: absolute;
     left: 0;
@@ -55,7 +55,7 @@
 }
 .form-horizontal .form-control:focus{
     box-shadow: none;
-    border-bottom-color: #EC5F20;
+    border-bottom-color: #00ADB5;
 }
 .form-horizontal .form-control::placeholder{
     color: #000;
@@ -95,7 +95,7 @@
 }
 .form-horizontal .signin{
     color: #fff;
-    background-color: #EC5F20;
+    background-color: #00ADB5;
     font-size: 17px;
     text-transform: capitalize;
     letter-spacing: 2px;

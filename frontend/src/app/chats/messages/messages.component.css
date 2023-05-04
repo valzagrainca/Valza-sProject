@@ -108,10 +108,10 @@
 .conversation {
   padding: 0 !important;
   margin: 0 !important;
-  height: 585px;
+  height: 620px;
   width: 100%;
   border-left: 1px solid rgba(0, 0, 0, .08);
-  /*overflow-y: auto;*/
+  background-image: url('https://cdn.vectorstock.com/i/preview-1x/24/82/abstract-grey-seamless-texture-background-vector-2512482.jpg');
 }
 
 .message {
@@ -122,13 +122,13 @@
   height: calc(100% - 120px);
   width:100%;
   border-right: 1px solid #393E46;
+  display: block;
 }
 
 .message-body {
   margin: 0 !important;
   padding: 0 !important;
   width: 100%;
-  height: 100px;
 }
 
 .message-main-receiver {
@@ -143,11 +143,14 @@
 
 .message-text {
   margin: 0 !important;
-  padding: 5px !important;
+  padding: 4px !important;
+  padding-bottom: 2px;
   word-wrap:break-word;
   font-weight: 200;
   font-size: 14px;
   padding-bottom: 0 !important;
+  max-width: 500px;
+  min-width:100px;
 }
 
 .message-time {
@@ -155,31 +158,35 @@
   margin-left: 50px !important;
   font-size: 12px;
   text-align: right;
-  color: #9a9a9a;
-
+  color: #fff;
+  height:10px;
+  position: relative;
+  bottom: 8px;
 }
 
 .receiver {
   width: auto !important;
   padding: 4px 10px 7px !important;
   border-radius: 10px 10px 10px 0;
-  background: #F0EB8D;
+  background: #263A29;
   font-size: 12px;
   text-shadow: 0 1px 1px rgba(0, 0, 0, .2);
   word-wrap: break-word;
   display: inline-block;
+  color:#fff;
 }
 
 .sender {
   float: right;
   width: auto !important;
-  background: #00ADB5;
+  background: #68B984;
   border-radius: 10px 10px 0 10px;
   padding: 4px 10px 7px !important;
   font-size: 12px;
   text-shadow: 0 1px 1px rgba(0, 0, 0, .2);
   display: inline-block;
   word-wrap: break-word;
+  color:#fff;
 }
 
 
@@ -249,6 +256,18 @@
   border: none;
   text-indent: 5px;
   box-shadow: none;
+}
+
+.replyForm{
+  display: flex;
+}
+
+.time{
+  display: flex;
+  justify-content: end;
+}
+.time i{
+  color: #9a9a9a;
 }
 
 @media screen and (max-width: 700px) {

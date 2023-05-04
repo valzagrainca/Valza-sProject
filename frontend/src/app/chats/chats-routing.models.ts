@@ -8,7 +8,6 @@ const routes: Routes = [
   {
     path: 'chat',component: ChatsComponent,
     children: [
-      { path: 'messages', component: MessagesComponent, data: { title: 'messages' }},
       { path: 'userchats', component: UserchatsComponent, data: { title: 'userchats' }}
     ]
   }

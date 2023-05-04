@@ -4,6 +4,9 @@ import { UserprofileComponent } from './userprofile/userprofile.component';
 import { UserDetailsRoutingModule } from './userdetails-routing';
 import { UserdetailsComponent } from './userdetails.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { enviroment } from 'enviroments/enviroment';
 
 @NgModule({
   declarations: [
@@ -14,7 +17,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     UserDetailsRoutingModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    AngularFireModule.initializeApp(enviroment.firebase),
+    AngularFireStorageModule
   ],
   providers: [
     { provide: 'Window',  useValue: window }

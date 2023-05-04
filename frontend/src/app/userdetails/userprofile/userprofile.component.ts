@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { finalize } from 'rxjs';
+import { FileMetaData } from 'src/app/core/models/file-meta-data';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { FileService } from 'src/app/core/services/file.service';
 
 @Component({
   selector: 'app-userprofile',
@@ -12,9 +16,12 @@ export class UserprofileComponent implements OnInit{
   profileForm!: FormGroup;
   message: string='';
   status!: boolean;
+  selectedFile=null;
+  currentFileUpload!:FileMetaData;
   private loggedInUser=this.authService.getLoggedInUser();
 
-  constructor(private formBuilder: FormBuilder, private authService:AuthService, private router:Router){}
+  constructor(private formBuilder: FormBuilder, private authService:AuthService, 
+    private router:Router, private fireStorage: AngularFireStorage, private fileService:FileService){}
 
   ngOnInit(): void {
     this.setupForm();
@@ -49,5 +56,36 @@ export class UserprofileComponent implements OnInit{
       );
     }
   }
+
+  navigatetoChats(): void{
+    this.router.navigate(['chat/userchats']);
+  }
   
+  onFileSelected(event:any){
+    this.selectedFile=event.target.files[0];
+    console.log(this.selectedFile);
+  }
+  onUpload(){
+    console.log('here');
+    this.currentFileUpload = new FileMetaData(this.selectedFile!);
+    const path = 'Uploads/'+this.currentFileUpload.file.name;
+    
+    const storageRef= this.fireStorage.ref(path);
+    const uploadTask= storageRef.put(this.selectedFile);
+
+    uploadTask.snapshotChanges().pipe(finalize(()=>{
+      storageRef.getDownloadURL().subscribe(downloadLink=>{
+        this.currentFileUpload.url=downloadLink;
+        this.currentFileUpload.size=this.currentFileUpload.file.size;
+        this.currentFileUpload.name=this.currentFileUpload.file.name;
+        
+        this.fileService.saveMetaDataOfFile(this.currentFileUpload)
+      })
+    })
+    ).subscribe((res:any)=>{
+      console.log(res);
+    },err=>{
+      console.log('Error occured')
+    })
+  }
 }

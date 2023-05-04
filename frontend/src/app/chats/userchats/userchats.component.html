@@ -1,17 +1,23 @@
 <div class="side-one">
     <div class="row heading">
         <div class="col-lg-10">
-            <div class="heading-avatar-icon">
-                <img src="{{loggedInUser ? loggedInUser.profile_picture:''}}" (click)="navigateToEditProfile()">
-                <p style="color: antiquewhite" (click)="navigateToEditProfile()">
-                  {{ loggedInUser ? (loggedInUser.first_name && loggedInUser.last_name ? (loggedInUser.first_name + ' ' + loggedInUser.last_name) : loggedInUser.username) : '' }}
+            <div class="heading-avatar-icon" (click)="navigateToEditProfile()">
+                <img src="{{loggedInUser ? loggedInUser.profile_picture:''}}">
+                <p style="color: antiquewhite">
+                  {{ loggedInUser ? (loggedInUser.first_name + ' ' + loggedInUser.last_name) : '' }}
             </div>
         </div>
         <div class="col-lg-1">
             <i class="fa fa-comments fa-2x  pull-right" aria-hidden="true"></i>
         </div>
         <div class="col-lg-1">
-            <i class="fa fa-ellipsis-v fa-2x  pull-right" aria-hidden="true"></i>
+              <div class="dropdown">
+              <i class="fa fa-ellipsis-v fa-2x  pull-right" aria-hidden="true" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <span class="dropdown-item" (click)="logOut()">Log out</span>
+                <span class="dropdown-item" (click)="navigateToEditProfile()">Edit Profile</span>
+              </div>
+            </div>
         </div>
     </div>
 
@@ -25,7 +31,7 @@
     </div>
 
     <div class="row sideBar" id="style-4">
-      <div *ngFor="let chat of chats" class="row sideBar-body">
+      <div *ngFor="let chat of chats" class="row sideBar-body" (click)="selectedChat(chat)">
         <div class="col-sm-3 col-xs-3 sideBar-avatar">
           <div class="avatar-icon">
             <img src="{{ chat.is_group ? chat.group_picture:chat.profile_picture}}">

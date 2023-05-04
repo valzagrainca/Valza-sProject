@@ -1,10 +1,11 @@
 .contact-form{
-    background: #fff;
+    background: #393E46;
+    color: #fff;
     margin-top: 5%;
     margin-bottom: 5%;
     width: 70%;
-    border: 1px solid black;
     border-radius: 30px;
+    padding-top: 30px;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
 }
 .contact-form .form-control{
@@ -13,6 +14,11 @@
 .contact-form label{
     padding: 5px;
     font-size: 14px;
+}
+.contact-form input{
+    border: 2px solid #00ADB5;
+    background-color: #393E46;
+    color:#fff;
 }
 .contact-image{
     text-align: center;
@@ -35,7 +41,7 @@
     border: none;
     border-radius: 1rem;
     padding: 1.5%;
-    background: #dc3545;
+    background: #00ADB5;
     font-weight: 600;
     color: #fff;
     cursor: pointer;
@@ -49,5 +55,32 @@
     color: #fff;
     background-color: #0062cc;
     border: none;
+    cursor: pointer;
+}
+.profile{
+    display:flex;
+}
+.form-icon{
+    color: #fff;
+    font-size: 75px;
+    line-height: 92px;
+    height: 70px;
+    width: 70px;
+    margin: -5px auto 10px;
+    border-radius: 50%;
+    background-color: #393E46;
+    position: absolute;
+    left: 47%;
+    top:50px;
+}
+.form-icon i {
+    position: absolute;
+
+}
+.close{
+    text-align:right;
+    margin-top: -10px;
+    padding-right: 10px;
+    color:#ED2B2A;
     cursor: pointer;
 }
