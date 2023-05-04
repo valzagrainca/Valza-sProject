@@ -15,6 +15,15 @@ export class ChatController{
     getMessages=async(req:Request, res:Response, next:NextFunction)=>{
         const chatId: number=Number(req.params.chatId);
         const messages=await this.chatService.getMessages(chatId,'v_view_chat');
-        res.json(messages);
+        res.json({messages:messages});
+    };
+
+    sendMessage=async(req:Request, res:Response, next:NextFunction)=>{
+        const user_id: number=req.body.user_id;
+        const text: string=req.body.text;
+        const chat_id: number=req.body.chat_id;
+        console.log(user_id,' ',text,' ',chat_id);
+        await this.chatService.sendMessage(user_id, text, chat_id,'send_chat');
+        res.json({'message':'Message sent successfully'});
     };
 }

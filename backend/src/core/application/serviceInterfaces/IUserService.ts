@@ -17,5 +17,5 @@ export interface IUserService {
     tableName : string
   ) => Promise<User | null>;
   getUserByEmail: (email : string, tableName : string)=>Promise<User | null>;
-  insertUser:(username: string,email: string,phone: string,password: string, procedureName : string)=>Promise<Boolean>;
+  insertUser:(username: string,email: string,phone: string,password: string, first_name: string, last_name: string, procedureName : string)=>Promise<Boolean>;
 }

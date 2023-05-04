@@ -19,26 +19,6 @@ export const createToken = (user:any) => {
     return accessToken;
 }
 
-// export const validateToken = (req:Request, res:Response, next:NextFunction) => {
-//     const accessToken = req.cookies["access-token"]
-//     const privateKey = Buffer.from(
-//         <string>(process.env.ACCESS_TOKEN_SECRET_KEY),
-//         'base64'
-//       ).toString('ascii');
-
-//     if(!accessToken){
-//         return res.status(400).json({error:"User not Authenticated!"});
-//     }
-//     try{
-//         const validToken = verify(accessToken,secretKey);
-//         if(validToken){
-//             (req as AuthenticatedRequest).authenticated = true;
-//             return next();
-//         }
-//     }catch(err){
-//         return res.status(400).json({error:err});
-//     }
-// }
 export const validateToken = (req: Request, res: Response, next: NextFunction) => {
     const authHeader = req.headers.authorization;
     const privateKey = Buffer.from(

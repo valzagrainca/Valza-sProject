@@ -15,10 +15,7 @@ export class UserController{
         const userId:number =Number(req.params.userId);
 
         const user=await this.userService.getUserById(userId,'Users');
-        res.render('admin/edit-user',{
-            pageTitle: 'Edit User',
-            user:user
-        });
+        res.json(user);
     };
 
     deleteUser= async (req: Request, res:Response, next: NextFunction)=>{
@@ -38,7 +35,6 @@ export class UserController{
             const status:string=req.body.status;
             const profile_picture:string=req.body.profile_picture;
             const updateduser=await this.userService.updateUser(id,username,email,phone,password,first_name,last_name,status,profile_picture,'users');
-            console.log(updateduser);
             res.status(200).json(updateduser);
     };
 }

@@ -16,4 +16,9 @@ export class ChatService implements IChatService{
         const messages=await this.chatRepository.callFunction(funcName,chat_id);
         return messages;
     }
+
+    sendMessage=async(user_id: number, text:string, chat_id:number, procedureName: string): Promise<boolean>=>{
+        const message=await this.chatRepository.callProcedure(procedureName,user_id,text,chat_id);
+        return message;
+    }
 }

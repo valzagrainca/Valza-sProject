@@ -42,7 +42,7 @@ export class UserService implements IUserService{
         return null; // indicate that update was not successful
       };
 
-    insertUser=async(username: string,email: string,phone: string,password: string, procedureName : string):Promise<Boolean>=>{
-        return await this.userRepository.callProcedure(procedureName,username,email,password,phone,2);
+    insertUser=async(username: string,email: string,phone: string,password: string, first_name: string, last_name: string, procedureName : string):Promise<Boolean>=>{
+        return await this.userRepository.callProcedure(procedureName,username,email,password,phone,2,first_name,last_name);
     }
 }

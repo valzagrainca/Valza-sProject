@@ -19,4 +19,6 @@ router.get('/userchats/:userId',validateToken,chatController.getUserChats);
 
 router.get('/messages/:chatId',validateToken,chatController.getMessages);
 
+router.post('/sendmessage',validateToken,chatController.sendMessage);
+
 export default router;

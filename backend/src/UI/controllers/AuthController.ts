@@ -57,12 +57,14 @@ export class AuthController{
         const email:string = req.body.email
         const phone:string=req.body.phone;
         const password:string = bcrypt.hashSync(req.body.password, 8);
+        const first_name:string=req.body.firstName;
+        const last_name:string=req.body.lastName;
 
         if(await this.userService.getUserByEmail(email,'Users')!=null){
             res.status(500).json({ message: 'User with this email already exists '});
         }
         else{
-            await this.userService.insertUser(username,email,phone,password,'insert_into_userstbl');
+            await this.userService.insertUser(username,email,phone,password,first_name,last_name,'insert_into_userstbl');
             res.status(200).json({ message: "User registered successfully " });
         }
     }

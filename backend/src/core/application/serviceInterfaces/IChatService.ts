@@ -5,4 +5,5 @@ import Message from '../../domain/entities/messages';
 export interface IChatService {
   getChats(id: number, funcName: string): Promise<{ chats: Chat[] }>;
   getMessages(chat_id: number, funcName: string): Promise<Message[]>;
+  sendMessage(user_id: number, text:string, chat_id:number, procedureName: string): Promise<boolean>;
 }
