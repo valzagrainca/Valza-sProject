@@ -21,4 +21,8 @@ router.get('/messages/:chatId',validateToken,chatController.getMessages);
 
 router.post('/sendmessage',validateToken,chatController.sendMessage);
 
+router.get('/countmessages/:user_id/:chat_id',validateToken,chatController.countNotSeenMessages);
+
+router.post('/markseen',validateToken,chatController.markAsSeen);
+
 export default router;

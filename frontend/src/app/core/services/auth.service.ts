@@ -7,6 +7,7 @@ import * as moment from 'moment';
 import { Router } from '@angular/router';
 import { LoggedInUser } from '../models/loggedInUser';
 import { User } from '../models/user';
+import { FireBaseService } from './FireBaseService.service';
 
 @Injectable({
     providedIn:'root'
@@ -15,15 +16,16 @@ import { User } from '../models/user';
 export class AuthService{
     private loggedInUser: LoggedInUser|null=null;
     constructor(
-        private http: HttpClient, private config:ConfigService, private router: Router
+        private http: HttpClient, private config:ConfigService, private router: Router,
+        private firebaseService: FireBaseService
     ){}
 
     logIn(email: string, password: string): Observable<LoginResponseModel> {
-        debugger;
         const body = { email, password };
         return this.http.post<LoginResponseModel>(this.config.apiUrl + 'login', body).pipe(
           tap(response => {
             localStorage.setItem('loggedInUser', JSON.stringify(response.user));
+            this.firebaseService.login(email,password);
             this.config.setupSocketConnection(); // set up client when user logs in
           })
         );
@@ -51,6 +53,7 @@ export class AuthService{
     }
 
     logout() {
+        this.firebaseService.logout();
         this.config.disconnect();
         localStorage.removeItem("access_token");
         localStorage.removeItem("expires_at");
@@ -105,7 +108,11 @@ export class AuthService{
             firstName: firstName,
             lastName: lastName
         };
-        return this.http.post<any>(this.config.apiUrl+'signup',body);
+        return this.http.post<any>(this.config.apiUrl+'signup',body).pipe(
+            tap(res=>{
+                this.firebaseService.signup(email,password);
+            })
+        );
     }
 
     updateProfile(username: string, firstname: string, lastname: string, email: string, profilepicture: string, phone: string, status: string): Observable<LoggedInUser>{

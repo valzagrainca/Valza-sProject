@@ -18,6 +18,7 @@ export class ChatsService {
 
   private loggedInUser = this.authService.getLoggedInUser();
   selectedChat = new EventEmitter<Chat>();
+  newMessage = new EventEmitter<Messages>();
   
   getUserChats():Observable<ChatResponseModel>{
       return this.http.get<ChatResponseModel>(this.config.apiUrl+'userchats/'+this.loggedInUser?.id);
@@ -55,6 +56,20 @@ export class ChatsService {
       is_group:false
     };
     await this.http.post(this.config.apiUrl+'sendmessage',body).toPromise();
+    this.newMessage.emit(newMessage);
     this.config.sendMessage(newMessage);
+  }
+
+  countNotSeenMessages(user_id:number, chat_id:number):Observable<{ not_seen_messages: number }>{
+    return this.http.get<{ not_seen_messages: number }>(this.config.apiUrl+`countmessages/${user_id}/${chat_id}`);
+  }
+
+  markMessageAsSeen(user_id:number, chat_id:number){
+    const body={
+      user_id: user_id,
+      chat_id: chat_id
+    };
+    console.log(body);
+    return this.http.post(this.config.apiUrl+'markseen',body);
   }
 }

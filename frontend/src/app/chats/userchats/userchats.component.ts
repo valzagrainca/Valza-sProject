@@ -15,16 +15,17 @@ export class UserchatsComponent implements OnInit{
   loggedInUser: LoggedInUser|null=null;
   chats: Chat[]=[];
   constructor(private chatService: ChatsService,private authService:AuthService, private router:Router){}
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.loggedInUser=this.authService.getLoggedInUser();
-    this.chatService.getUserChats().subscribe(
-      (result) => {
-        this.chats = result.chats;
-      },
-      (error: any) => {
-        console.error(error);
+    const result = await this.chatService.getUserChats().toPromise();
+    if(result){
+      this.chats = result.chats;
+      for(const chat of this.chats) {
+        await this.notSeenChats(this.loggedInUser?.id, chat.chat_id);
       }
-  );}
+    }
+    this.defaultChat();
+  }
   
   navigateToEditProfile():void{
     this.router.navigate(['/userdetail']);
@@ -34,8 +35,56 @@ export class UserchatsComponent implements OnInit{
     this.chatService.selectedChat.emit(chat);
   }
 
+  private defaultChat(): void{
+    this.chatService.getDefaultChat().subscribe(
+      (chat: Chat) => {
+        this.selectedChat(chat);
+        this.markAsSeen(chat.user_id,chat.chat_id);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }  
+
   logOut(){
     this.authService.logout();
   }
-}
 
+  async notSeenChats(user_id:number|undefined, chat_id:number): Promise<void> {
+    if(user_id){
+      const res: { not_seen_messages: number }|undefined = await this.chatService.countNotSeenMessages(user_id,chat_id).toPromise();
+      this.chats = this.chats.map(chat => {
+        if (chat.chat_id === chat_id) {
+          chat.unseen_count = Number(res?.not_seen_messages);
+          return chat;
+        } else {
+          return chat;
+        }
+      });
+    }
+  }
+
+  markAsSeen(user_id:number|undefined, chat_id:number){
+    if(user_id){
+      this.chatService.markMessageAsSeen(user_id,chat_id).subscribe(
+        (res)=>{
+          this.chats=this.chats.map(
+            chat=>{
+              if(chat.chat_id===chat_id){
+                chat.unseen_count=0;
+                return chat;
+              }
+              else
+              {
+                return chat;
+
+              }
+            }
+          )
+        }
+      );
+    }
+  }
+  
+}

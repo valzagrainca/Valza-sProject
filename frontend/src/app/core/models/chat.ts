@@ -7,6 +7,7 @@ export interface Chat {
     username: string,
     first_name: string,
     last_name: string,
-    profile_picture: string
+    profile_picture: string,
+    unseen_count: number
 }
   

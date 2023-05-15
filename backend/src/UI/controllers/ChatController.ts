@@ -26,4 +26,19 @@ export class ChatController{
         await this.chatService.sendMessage(user_id, text, chat_id,'send_chat');
         res.json({'message':'Message sent successfully'});
     };
+
+    countNotSeenMessages=async(req:Request, res:Response, next:NextFunction)=>{
+        const user_id: number=Number(req.params.user_id);
+        const chat_id: number=Number(req.params.chat_id);
+        const countmessages=await this.chatService.countNotSeenMessages(user_id,chat_id,'not_seen_messages');
+        res.json(countmessages);
+    };
+
+    markAsSeen=async(req:Request, res:Response, next:NextFunction)=>{
+        const user_id: number=req.body.user_id;
+        const chat_id: number=req.body.chat_id;
+        console.log(user_id,' ',chat_id);
+        await this.chatService.markAsSeen(user_id,chat_id,'mark_as_seen');
+        res.json({'message':'Updated successfully'});
+    }
 }

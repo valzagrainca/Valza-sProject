@@ -5,13 +5,14 @@
   width: 100%;
   z-index: 1;
   position: relative;
-  display: block;
+  display: flex;
+  flex-direction: column;
 }
 
 .heading {
   padding: 10px 16px 10px 15px;
   margin: 0;
-  height: 60px;
+  height: 10%;
   width: 100%;
   background-color: #222831;
   z-index: 1000;
@@ -47,9 +48,7 @@
 .searchBox {
   padding: 0 !important;
   margin: 0 !important;
-  height: 60px;
   width: 100%;
-  
 }
 
 .searchBox-inner {
@@ -76,8 +75,8 @@
   background-color: #393E46;
   overflow-y: auto;
   border: 1px solid #222831;
-  height: 510px !important;
   display: block;
+  height: 100%;
 }
 .sideBar-body {
   position: relative;
@@ -126,7 +125,9 @@
 }
 
 .sideBar-time {
-  padding: 10px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .time-meta {
@@ -153,4 +154,18 @@
 {
 	background-color: #24282e;
 	border: 1px solid #393E46;
+}
+.notSeen{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.notSeen span{
+  background-color:#B33030;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  width:20px;
+  color:white;
+  font-size: 12px;
 }

@@ -31,7 +31,7 @@
     </div>
 
     <div class="row sideBar" id="style-4">
-      <div *ngFor="let chat of chats" class="row sideBar-body" (click)="selectedChat(chat)">
+      <div *ngFor="let chat of chats" class="row sideBar-body" (click)="selectedChat(chat); markAsSeen(loggedInUser?.id,chat.chat_id)">
         <div class="col-sm-3 col-xs-3 sideBar-avatar">
           <div class="avatar-icon">
             <img src="{{ chat.is_group ? chat.group_picture:chat.profile_picture}}">
@@ -43,7 +43,10 @@
               <span class="name-meta">{{ chat.is_group ? chat.chat_name : (chat.first_name && chat.last_name ? (chat.first_name + ' ' + chat.last_name) : chat.username)}}
             </span>
             </div>
-            <div class="col-sm-4 col-xs-4 pull-right sideBar-time">
+            <div class="col-sm-2 col-xs-2 notSeen">
+              <span *ngIf="chat.unseen_count!=0">{{ chat.unseen_count }}</span>
+            </div>
+            <div class="col-sm-2 col-xs-2 pull-right sideBar-time">
               <span class="time-meta pull-right">18:18
             </span>
             </div>

@@ -108,10 +108,12 @@
 .conversation {
   padding: 0 !important;
   margin: 0 !important;
-  height: 620px;
+  height: 582px;
   width: 100%;
   border-left: 1px solid rgba(0, 0, 0, .08);
   background-image: url('https://cdn.vectorstock.com/i/preview-1x/24/82/abstract-grey-seamless-texture-background-vector-2512482.jpg');
+  display: flex;
+  flex-direction: column;
 }
 
 .message {
@@ -207,7 +209,7 @@
 
 .reply-emojis i {
   text-align: center;
-  padding: 5px 5px 5px 5px !important;
+  padding:5px !important;
   color: #93918f;
   cursor: pointer;
 }
@@ -242,7 +244,7 @@
   width: 100%;
   resize: none;
   overflow: hidden;
-  padding: 5px !important;
+  padding: 12px !important;
   outline: none;
   border: none;
   text-indent: 5px;
@@ -267,7 +269,7 @@
   justify-content: end;
 }
 .time i{
-  color: #9a9a9a;
+  font-size: 15px;
 }
 
 @media screen and (max-width: 700px) {

@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, ElementRef, NgModule, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, EventEmitter, NgModule, OnInit, ViewChild } from '@angular/core';
 import { Messages } from 'src/app/core/models/messages';
 import { LoggedInUser } from 'src/app/core/models/loggedInUser';
 import { AuthService } from 'src/app/core/services/auth.service';
@@ -24,6 +24,7 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
   loggedInUser: LoggedInUser|null=null;
   selectedChatId:number|null=null;
   currentUser: User|null=null;
+  
   ngOnInit(): void {
     this.setupForm();
     this.loggedInUser = this.authService.getLoggedInUser();
@@ -34,28 +35,12 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
         this.getCurrentUser(res.user_id);
       }
     )
-    this.defaultChat();
     this.getNewMessage();
   }
 
   ngAfterViewChecked(): void {
     this.chatWindow.nativeElement.scrollTop = this.chatWindow.nativeElement.scrollHeight;
   }
-
-  private defaultChat(): void{
-    this.chatService.getDefaultChat().subscribe(
-      (chat: Chat) => {
-        this.selectedChatId = chat.chat_id;
-        this.getCurrentUser(chat.user_id);
-        if (this.selectedChatId) {
-          this.getChatMessages(this.selectedChatId);
-        }
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }  
 
   private getChatMessages(chatid: number){
     this.chatService.getUserMessages(chatid).subscribe(
@@ -93,5 +78,6 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
     if(this.loggedInUser?.id && this.selectedChatId){
       this.chatService.sendMessage(this.loggedInUser.id,message,this.selectedChatId);
     }
+    this.replyForm.get('message')?.reset();
   }
 }
