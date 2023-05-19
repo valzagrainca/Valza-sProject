@@ -11,7 +11,6 @@ export class AppComponent implements OnInit{
   constructor(private authService: AuthService, private config:ConfigService) {}
   
   ngOnInit(): void {
-    console.log(this.authService.isLoggedIn());
     if (this.authService.isLoggedIn()) {
       this.config.setupSocketConnection();
     }

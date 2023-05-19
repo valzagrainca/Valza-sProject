@@ -19,6 +19,7 @@ export class UserprofileComponent implements OnInit{
   selectedFile=null;
   currentFileUpload!:FileMetaData;
   private loggedInUser=this.authService.getLoggedInUser();
+  imgSrc='../assets/images/avatar.jpg';
 
   constructor(private formBuilder: FormBuilder, private authService:AuthService, 
     private router:Router, private fireStorage: AngularFireStorage, private fileService:FileService){}

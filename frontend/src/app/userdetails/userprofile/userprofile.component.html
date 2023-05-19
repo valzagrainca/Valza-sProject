@@ -30,7 +30,10 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="picture">Profile Picture</label>
+                            <div>
+                                <label for="picture">Profile Picture</label>
+                                <img [src]="imgSrc" width="150px" height="150px">
+                            </div>
                             <div class="profile">
                                 <input type="file" name="picture" class="form-control" placeholder="Profile Picture" (change)="onFileSelected($event)"/>
                                 <button (click)="onUpload()">Upload</button>
