@@ -27,7 +27,7 @@
                 <span class="message-time pull-right">
                   {{message.sent_at | date: 'HH:mm'}}
                 </span>
-                <i class="fa fa-check" aria-hidden="true" [ngStyle]="message.seen_at ? {'color':'#19A7CE'}:{'color':'#9a9a9a'}"></i>
+                <i class="fa fa-check" aria-hidden="true" [ngStyle]="message.seen_at ? {'color':'#2F58CD'}:{'color':'#b0afaf'}"></i>
               </div>
             </div>
           </div>
@@ -40,7 +40,7 @@
                  {{message.text}}
                 </div>
                 <div class="time">
-                  <span class="message-time pull-right">
+                  <span class="message-time-rec pull-right">
                     {{message.sent_at | date: 'HH:mm'}}
                   </span>
                 </div>

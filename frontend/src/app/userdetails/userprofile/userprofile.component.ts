@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
 import { FileMetaData } from 'src/app/core/models/file-meta-data';
+import { FireBaseService } from 'src/app/core/services/FireBaseService.service';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { FileService } from 'src/app/core/services/file.service';
 
@@ -17,12 +18,13 @@ export class UserprofileComponent implements OnInit{
   message: string='';
   status!: boolean;
   selectedFile=null;
-  currentFileUpload!:FileMetaData;
   private loggedInUser=this.authService.getLoggedInUser();
   imgSrc='../assets/images/avatar.jpg';
+  path:string='';
 
   constructor(private formBuilder: FormBuilder, private authService:AuthService, 
-    private router:Router, private fireStorage: AngularFireStorage, private fileService:FileService){}
+    private router:Router, private fireStorage: AngularFireStorage, private fileService:FileService,
+    private fireBaseService:FireBaseService){}
 
   ngOnInit(): void {
     this.setupForm();
@@ -34,19 +36,18 @@ export class UserprofileComponent implements OnInit{
       firstname: [this.loggedInUser?.first_name],
       lastname: [this.loggedInUser?.last_name],
       email: [this.loggedInUser?.email, [Validators.required]],
-      profile_picture: [this.loggedInUser?.profile_picture, [Validators.required]],
       phone: [this.loggedInUser?.phone, [Validators.required]],
       status: [this.loggedInUser?.status]
     });
   }
 
-  updateUserProfile(): void {
+  async updateUserProfile(): Promise<void> {
     if (this.profileForm.valid) {
-      debugger;
-      const { username, firstname, lastname, email, profile_picture, phone, status } = this.profileForm.value;
-      this.authService.updateProfile(username, firstname, lastname, email, profile_picture, phone, status).subscribe(
+      const image_url=await this.changeProfile();
+      console.log(image_url,'t');
+      const { username, firstname, lastname, email, phone, status } = this.profileForm.value;
+      this.authService.updateProfile(username, firstname, lastname, email,image_url, phone, status).subscribe(
         (response) => {
-          console.log(response);
           this.loggedInUser=this.authService.getLoggedInUser();
           this.router.navigate(['chat/userchats']);
         },
@@ -55,6 +56,9 @@ export class UserprofileComponent implements OnInit{
           this.status = false;
         }
       );
+    }
+    else{
+      console.log('error');
     }
   }
 
@@ -66,27 +70,18 @@ export class UserprofileComponent implements OnInit{
     this.selectedFile=event.target.files[0];
     console.log(this.selectedFile);
   }
-  onUpload(){
-    console.log('here');
-    this.currentFileUpload = new FileMetaData(this.selectedFile!);
-    const path = 'Uploads/'+this.currentFileUpload.file.name;
-    
-    const storageRef= this.fireStorage.ref(path);
-    const uploadTask= storageRef.put(this.selectedFile);
-
-    uploadTask.snapshotChanges().pipe(finalize(()=>{
-      storageRef.getDownloadURL().subscribe(downloadLink=>{
-        this.currentFileUpload.url=downloadLink;
-        this.currentFileUpload.size=this.currentFileUpload.file.size;
-        this.currentFileUpload.name=this.currentFileUpload.file.name;
-        
-        this.fileService.saveMetaDataOfFile(this.currentFileUpload)
-      })
-    })
-    ).subscribe((res:any)=>{
-      console.log(res);
-    },err=>{
-      console.log('Error occured')
-    })
+  async changeProfile(): Promise<string> {
+    const currentFileUpload = new FileMetaData(this.selectedFile!);
+    this.path = 'Uploads/' + currentFileUpload.file.name + `/${this.loggedInUser?.id}`;
+  
+    try {
+      await this.fireBaseService.uploadImage(this.path, this.selectedFile!, currentFileUpload);
+      console.log('1', currentFileUpload);
+      return currentFileUpload.url;
+    } catch (error) {
+      console.log('Error occurred:', error);
+      throw error; // Throw the error to be caught by the caller
+    }
   }
+  
 }

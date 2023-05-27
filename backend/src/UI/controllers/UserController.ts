@@ -34,6 +34,7 @@ export class UserController{
             const password:string=req.body.password;
             const status:string=req.body.status;
             const profile_picture:string=req.body.profile_picture;
+            console.log(profile_picture);
             const updateduser=await this.userService.updateUser(id,username,email,phone,password,first_name,last_name,status,profile_picture,'users');
             res.status(200).json(updateduser);
     };

@@ -81,7 +81,7 @@
 .sideBar-body {
   position: relative;
   padding: 10px !important;
-  border-bottom: 1px solid #00ADB5;
+  border-bottom: 1px solid #fff;
   height: 72px;
   margin: 0 !important;
   cursor: pointer;
@@ -161,7 +161,7 @@
   align-items: center;
 }
 .notSeen span{
-  background-color:#B33030;
+  background-color:#EB455F;
   border-radius: 100%;
   display: flex;
   justify-content: center;

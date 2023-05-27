@@ -39,7 +39,6 @@ export class UserchatsComponent implements OnInit{
     this.chatService.getDefaultChat().subscribe(
       (chat: Chat) => {
         this.selectedChat(chat);
-        this.markAsSeen(chat.user_id,chat.chat_id);
       },
       (error) => {
         console.log(error);

@@ -1,11 +1,10 @@
 .contact-form{
-    background: #393E46;
+    background-image: url("../../../assets/images/wave-haikei.svg");
     color: #fff;
-    margin-top: 5%;
-    margin-bottom: 5%;
+    margin-top: 2%;
+    margin-bottom: 2%;
     width: 70%;
     border-radius: 30px;
-    padding-top: 30px;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
 }
 .contact-form .form-control{
@@ -14,11 +13,11 @@
 .contact-form label{
     padding: 5px;
     font-size: 14px;
+    color: #24282e;
 }
 .contact-form input{
-    border: 2px solid #00ADB5;
-    background-color: #393E46;
-    color:#fff;
+    border: 1.5px solid #00ADB5;
+    background-color: #fff;
 }
 .contact-image{
     text-align: center;
@@ -53,7 +52,7 @@
     border-radius: 1rem;
     padding: 1.5%;
     color: #fff;
-    background-color: #0062cc;
+    background-color: #00ADB5;
     border: none;
     cursor: pointer;
 }
@@ -79,8 +78,42 @@
 }
 .close{
     text-align:right;
-    margin-top: -10px;
-    padding-right: 10px;
-    color:#ED2B2A;
+    color:#EB455F;
     cursor: pointer;
+    display: flex;
+    align-items: end;
+    justify-content: end;
+    font-size:20px;
+}
+.close button{
+    width:10px;
+}
+.imageContainer{
+    display:flex;
+    justify-content: center;
+}
+.image{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+img{
+    border-radius: 100%;
+    border: 1px solid #24282e;
+}
+.image-container {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    margin-bottom: 50px;
+}
+  
+.image-container  button {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 8px;
+    background-color: #EB455F;
 }

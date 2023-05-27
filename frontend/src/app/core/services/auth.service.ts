@@ -115,8 +115,7 @@ export class AuthService{
         );
     }
 
-    updateProfile(username: string, firstname: string, lastname: string, email: string, profilepicture: string, phone: string, status: string): Observable<LoggedInUser>{
-        debugger;       
+    updateProfile(username: string, firstname: string, lastname: string, email: string, profilepicture: string, phone: string, status: string): Observable<LoggedInUser>{     
         const body={
             id: this.loggedInUser?.id,
             username: username,

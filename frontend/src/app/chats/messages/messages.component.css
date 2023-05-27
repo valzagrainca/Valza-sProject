@@ -5,7 +5,8 @@
     width: 100%;
     background-color: #222831;
     z-index: 1000;
-    border-bottom: 1px solid #393E46;
+    border-bottom: 1px solid #fff;
+    color:#fff;
   }
   
 .heading-avatar {
@@ -16,11 +17,9 @@
 .heading-name{
     font-size: 17px;
     padding: 6px;
-    color: #EEEEEE;
 }
   
 .pull-right{
-    color:#EEEEEE;
     font-size: 25px;
     padding: 6px;
 }
@@ -111,7 +110,6 @@
   height: 582px;
   width: 100%;
   border-left: 1px solid rgba(0, 0, 0, .08);
-  background-image: url('https://cdn.vectorstock.com/i/preview-1x/24/82/abstract-grey-seamless-texture-background-vector-2512482.jpg');
   display: flex;
   flex-direction: column;
 }
@@ -148,7 +146,7 @@
   padding: 4px !important;
   padding-bottom: 2px;
   word-wrap:break-word;
-  font-weight: 200;
+  font-weight: 400;
   font-size: 14px;
   padding-bottom: 0 !important;
   max-width: 500px;
@@ -165,30 +163,40 @@
   position: relative;
   bottom: 8px;
 }
+.message-time-rec {
+  margin: 0 !important;
+  margin-left: 50px !important;
+  font-size: 12px;
+  text-align: right;
+  color: black;
+  height:10px;
+  position: relative;
+  bottom: 8px;
+}
 
 .receiver {
   width: auto !important;
   padding: 4px 10px 7px !important;
   border-radius: 10px 10px 10px 0;
-  background: #263A29;
+  background: #eaeaea;
   font-size: 12px;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, .2);
   word-wrap: break-word;
   display: inline-block;
-  color:#fff;
+  color:black;
+  font-weight: 500;
 }
 
 .sender {
   float: right;
   width: auto !important;
-  background: #68B984;
+  background: #00ADB5;
   border-radius: 10px 10px 0 10px;
   padding: 4px 10px 7px !important;
   font-size: 12px;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, .2);
   display: inline-block;
   word-wrap: break-word;
   color:#fff;
+  font-weight: 500;
 }
 
 
@@ -197,7 +205,7 @@
 .reply {
   height: 70px;
   width: 100%;
-  background-color: #393E46;
+  background-color: #eaeaea;
   padding: 10px 5px 10px 5px !important;
   margin: 0 !important;
   z-index: 1000;
@@ -269,7 +277,7 @@
   justify-content: end;
 }
 .time i{
-  font-size: 15px;
+  font-size: 14px;
 }
 
 @media screen and (max-width: 700px) {

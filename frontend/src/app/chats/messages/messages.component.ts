@@ -7,7 +7,6 @@ import { User } from 'src/app/core/models/user';
 import { Router } from '@angular/router';
 import { Chat } from 'src/app/core/models/chat';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NgxEmojiPickerModule } from 'ngx-emoji-picker';
 import { ConfigService } from 'src/app/core/services/config.service';
 
 @Component({
@@ -75,9 +74,14 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
 
   sendMessage(){
     const message = this.replyForm.get('message')?.value;
-    if(this.loggedInUser?.id && this.selectedChatId){
-      this.chatService.sendMessage(this.loggedInUser.id,message,this.selectedChatId);
+    if(message){
+      if(this.loggedInUser?.id && this.selectedChatId){
+        this.chatService.sendMessage(this.loggedInUser.id,message,this.selectedChatId);
+      }
+      this.replyForm.get('message')?.reset();
     }
-    this.replyForm.get('message')?.reset();
+    else{
+      console.log('Can not send empty message');
+    }
   }
 }

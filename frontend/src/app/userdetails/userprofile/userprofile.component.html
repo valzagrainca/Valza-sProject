@@ -1,11 +1,23 @@
 <div class="container contact-form">
-            <div class="form-icon">
-                <i class="fa fa-user-circle"></i>
-            </div>
-            <div class="close">
-                <i class="fa fa-close" (click)="navigatetoChats()"></i>
+            <div class="close row">
+                <button mat-button (click)="navigatetoChats()">
+                    <mat-icon>close</mat-icon>
+                </button>
             </div>
             <form [formGroup]="profileForm">
+                <div class="row imageContainer">
+                    <div class="form-group image">
+                        <div class="image-container">
+                            <img [src]="imgSrc" width="150px" height="150px">
+                            <button mat-mini-fab (click)="inputField.click()">
+                              <mat-icon>edit</mat-icon>
+                            </button>
+                        </div>
+                        <div class="profile">
+                            <input #inputField type="file" name="picture" class="form-control" placeholder="Profile Picture" (change)="onFileSelected($event)" hidden/>
+                        </div>
+                    </div>
+                </div>
                <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
@@ -21,23 +33,13 @@
                             <input type="text" name="txtLastName" class="form-control" placeholder="Last Name" formControlName="lastname"/>
                         </div>
                         <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" name="email" class="form-control" placeholder="Email" formControlName="email"/>
-                        </div>
-                        <div class="form-group">
                             <input type="submit" name="btnSubmit" class="btnContact" value="Edit Profile" (click)="updateUserProfile()" />
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <div>
-                                <label for="picture">Profile Picture</label>
-                                <img [src]="imgSrc" width="150px" height="150px">
-                            </div>
-                            <div class="profile">
-                                <input type="file" name="picture" class="form-control" placeholder="Profile Picture" (change)="onFileSelected($event)"/>
-                                <button (click)="onUpload()">Upload</button>
-                            </div>
+                            <label for="email">Email</label>
+                            <input type="email" name="email" class="form-control" placeholder="Email" formControlName="email"/>
                         </div>
                         <div class="form-group">
                             <label for="phone">Phone</label>
