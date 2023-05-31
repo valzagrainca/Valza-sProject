@@ -26,7 +26,9 @@ export class MessagesComponent implements OnInit, AfterViewChecked {
   
   ngOnInit(): void {
     this.setupForm();
-    this.loggedInUser = this.authService.getLoggedInUser();
+    this.authService.getLoggedInUser().subscribe((user: LoggedInUser | null) => {
+      this.loggedInUser = user;
+    });
     this.chatService.selectedChat.subscribe(
       (res)=>{
         this.selectedChatId=res.chat_id;

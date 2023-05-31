@@ -7,20 +7,29 @@ import { AuthService } from './auth.service';
 import { MessageResponseModel } from 'src/app/chats/models/message-response';
 import { Chat } from '../models/chat';
 import { Messages } from '../models/messages';
+import { LoggedInUser } from '../models/loggedInUser';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class ChatsService {
-  private chats:ChatResponseModel | undefined;
-  constructor(private http: HttpClient, private config:ConfigService, private authService:AuthService){}
-
-  private loggedInUser = this.authService.getLoggedInUser();
+  loggedInUser: LoggedInUser | null=null;
+  constructor(
+    private http: HttpClient,
+    private config: ConfigService,
+    private authService: AuthService
+  ) {
+    this.authService.getLoggedInUser().subscribe((user: LoggedInUser | null) => {
+      this.loggedInUser = user;
+    });
+  }
   selectedChat = new EventEmitter<Chat>();
   newMessage = new EventEmitter<Messages>();
+
   
   getUserChats():Observable<ChatResponseModel>{
+    console.log('ser',this.loggedInUser?.id);
       return this.http.get<ChatResponseModel>(this.config.apiUrl+'userchats/'+this.loggedInUser?.id);
   }
 

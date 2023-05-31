@@ -14,51 +14,54 @@ import { FireBaseService } from './FireBaseService.service';
 })
 
 export class AuthService{
-    private loggedInUser: LoggedInUser|null=null;
+    private loggedInUser: LoggedInUser | null = null;
+    private loggedInUserSubject: BehaviorSubject<LoggedInUser | null> = new BehaviorSubject<LoggedInUser | null>(null);
+  
     constructor(
-        private http: HttpClient, private config:ConfigService, private router: Router,
-        private firebaseService: FireBaseService
-    ){}
-
+      private http: HttpClient,
+      private config: ConfigService,
+      private router: Router,
+      private firebaseService: FireBaseService
+    ) {}
+  
     logIn(email: string, password: string): Observable<LoginResponseModel> {
-        const body = { email, password };
-        return this.http.post<LoginResponseModel>(this.config.apiUrl + 'login', body).pipe(
-          tap(response => {
-            localStorage.setItem('loggedInUser', JSON.stringify(response.user));
-            this.firebaseService.login(email,password);
-            this.config.setupSocketConnection(); // set up client when user logs in
-          })
-        );
-      }
-      
-    
+      const body = { email, password };
+      return this.http.post<LoginResponseModel>(this.config.apiUrl + 'login', body).pipe(
+        tap(response => {
+          localStorage.setItem('loggedInUser', JSON.stringify(response.user));
+          this.loggedInUser = response.user;
+          this.loggedInUserSubject.next(this.loggedInUser);
+          this.firebaseService.login(email, password);
+          this.config.setupSocketConnection();
+        })
+      );
+    }
+  
     setSession(token: string) {
-        const expiresAt = moment().add(1, 'hour').unix();
-        localStorage.setItem('access_token', token);
-        localStorage.setItem('expires_at', JSON.stringify(expiresAt));
-        console.log(localStorage.getItem('access_token'),' ',localStorage.getItem('expires_at'));
+      const expiresAt = moment().add(1, 'hour').unix();
+      localStorage.setItem('access_token', token);
+      localStorage.setItem('expires_at', JSON.stringify(expiresAt));
+      console.log(localStorage.getItem('access_token'), ' ', localStorage.getItem('expires_at'));
     }
-
-    getLoggedInUser(){
-        const user = localStorage.getItem('loggedInUser');
-        if(user){
-            this.loggedInUser= JSON.parse(user);
-            return this.loggedInUser;
-        }
-        return null;
+  
+    getLoggedInUser(): Observable<LoggedInUser | null> {
+      return this.loggedInUserSubject.asObservable();
     }
-
-    setLoggedInUser(loggedInUser: LoggedInUser|null){
-        this.loggedInUser=loggedInUser;
+  
+    setLoggedInUser(loggedInUser: LoggedInUser | null) {
+      this.loggedInUser = loggedInUser;
+      this.loggedInUserSubject.next(loggedInUser);
     }
-
+  
     logout() {
-        this.firebaseService.logout();
-        this.config.disconnect();
-        localStorage.removeItem("access_token");
-        localStorage.removeItem("expires_at");
-        localStorage.removeItem('loggedInUser');
-        this.router.navigate(['login']);
+      this.firebaseService.logout();
+      this.config.disconnect();
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('expires_at');
+      localStorage.removeItem('loggedInUser');
+      this.router.navigate(['login']);
+      this.loggedInUser = null;
+      this.loggedInUserSubject.next(null);
     }
 
     isLoggedIn() {

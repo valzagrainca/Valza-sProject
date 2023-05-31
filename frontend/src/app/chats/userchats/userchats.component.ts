@@ -16,8 +16,11 @@ export class UserchatsComponent implements OnInit{
   chats: Chat[]=[];
   constructor(private chatService: ChatsService,private authService:AuthService, private router:Router){}
   async ngOnInit(): Promise<void> {
-    this.loggedInUser=this.authService.getLoggedInUser();
+    this.authService.getLoggedInUser().subscribe((user: LoggedInUser | null) => {
+      this.loggedInUser = user;
+    });
     const result = await this.chatService.getUserChats().toPromise();
+    console.log(this.loggedInUser?.id,'component')
     if(result){
       this.chats = result.chats;
       for(const chat of this.chats) {
